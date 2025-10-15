@@ -1,28 +1,35 @@
 <script setup>
-import { ref } from 'vue'
-import socksGreenImage from './assets/images/socks_green.jpeg'
+  import { ref } from 'vue';
+  import socksGreenImage from './assets/images/socks_green.jpeg';
+  import socksBlueImage from './assets/images/socks_blue.jpeg';
 
-const product = ref('Socks')
-const image = ref(socksGreenImage)
-const inStock = true
-  
-const details = ref(['50% cotton', '30% wool', '20% polyester'])
+  const product = ref('Socks');
+  const image = ref(socksGreenImage);
+  const inStock = true;
 
-const variants = ref([
-  { id: 2234, color: 'green' },
-  { id: 2235, color: 'blue' },
-])
+  const details = ref(['50% cotton', '30% wool', '20% polyester']);
 
-const cart = ref(0)
+  const variants = ref([
+    { id: 2234, color: 'green', image: socksGreenImage },
+    { id: 2235, color: 'blue', image: socksBlueImage },
+  ]);
+
+  const cart = ref(0);
+  const addToCart = () => (cart.value += 1);
+  const removeFromCart = () => (cart.value -= 1);
 </script>
-  
+
 <template>
   <div class="nav-bar"></div>
-  <div class="cart">Cart({{ cart }})</div>
+  <div class="cartarea">
+    <div class="cart">Cart({{ cart }}) </div>
+    <div><button class="button" @click="removeFromCart">Remove from Cart</button></div>
+  </div>
+
   <div class="product-display">
     <div class="product-container">
-      <div class="product-image">    
-        <img v-bind:src="image">
+      <div class="product-image">
+        <img v-bind:src="image" />
       </div>
       <div class="product-info">
         <h1>{{ product }}</h1>
@@ -31,13 +38,10 @@ const cart = ref(0)
         <ul>
           <li v-for="detail in details">{{ detail }}</li>
         </ul>
-        <div
-          v-for="variant in variants"
-          :key="variant.id"
-        >
+        <div v-for="variant in variants" :key="variant.id" @mouseover="image = variant.image">
           {{ variant.color }}
         </div>
-        <button class="button">Add to Cart</button>
+        <button class="button" @click="addToCart">Add to Cart</button>
       </div>
     </div>
   </div>
