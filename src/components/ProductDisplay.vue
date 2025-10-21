@@ -57,10 +57,8 @@
   };
 
   const addReview = (review) => {
-    reviews.value.push[review];
-    reviews.forEach((value) => {
-      console.log(value);
-    });
+    reviews.value.push(review);
+    console.log(reviews);
   };
 </script>
 
@@ -91,7 +89,8 @@
         </button>
       </div>
     </div>
-    <ReviewList :reviews="reviews"></ReviewList>
+    <ReviewList :reviews="reviews" />
+
     <ReviewForm @review-submitted="addReview"></ReviewForm>
   </div>
 </template>
