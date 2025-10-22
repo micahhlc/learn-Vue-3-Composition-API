@@ -9,14 +9,27 @@
     rating: null,
   });
 
+  let alertMsg = ref('');
+  let alertTimer = 2000;
+
   const onSubmit = () => {
+    if (review.name === '' || review.content === '' || review.rating === null) {
+      alertMsg.value = 'Plst fill out all info.';
+      console.log(alertMsg.value);
+      setTimeout(() => {
+        alertMsg.value = '';
+      }, 5000);
+      console.log('after 5s: ', alertMsg.value);
+      // console.log(review);
+      return;
+    }
     const productReview = {
       name: review.name,
       content: review.content,
       rating: review.rating,
     };
     emit('review-submitted', productReview);
-
+    alertMsg.value = '';
     review.name = 'kk';
     review.content = '';
     review.rating = null;
@@ -26,6 +39,11 @@
 <template>
   <form class="review-form" @submit.prevent="onSubmit">
     <h3>Leave a review</h3>
+    <!-- <p :class="{ 'alert-msg': alertMsg.length > 0 }">{{ alertMsg }}</p> -->
+    <transition name="fade">
+      <p v-if="alertMsg.length" class="alert-msg">{{ alertMsg }}</p>
+    </transition>
+
     <label for="name">Name:</label>
     <input id="name" v-model="review.name" />
 
