@@ -1,10 +1,10 @@
 <script setup>
-defineProps({
-  reviews: {
-    type: Array,
-    required: true
-  }
-})
+  defineProps({
+    reviews: {
+      type: Array,
+      required: true,
+    },
+  });
 </script>
 
 <template>
@@ -13,9 +13,13 @@ defineProps({
     <ul>
       <li v-for="(review, index) in reviews" :key="index">
         <span>{{ review.name }} gave this {{ review.rating }} stars</span>
-        <br/>
         <span>"{{ review.content }}"</span>
+        <p>
+          Recommendation score: <span style="font-weight: 200">{{ review.recommendScore }}</span>
+        </p>
       </li>
     </ul>
   </div>
 </template>
+
+<style lang="scss" scoped></style>
